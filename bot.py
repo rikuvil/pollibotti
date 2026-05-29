@@ -12,7 +12,6 @@ load_dotenv()
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 CHAT_ID = int(os.getenv("CHAT_ID"))
 
-# Initialize the Bot instance
 bot = Bot(token=BOT_TOKEN)
 
 FI_WEEKDAYS = [
@@ -40,7 +39,7 @@ async def send_weekly_poll():
     # (Forces the target to snap back to the Monday of that next week)
     next_monday = next_week_target - timedelta(days=next_week_target.weekday())
 
-    # Build the daily options
+    # English -> Suomi päivät
     options = []
     for i in range(7):
         day = next_monday + timedelta(days=i)
@@ -48,7 +47,7 @@ async def send_weekly_poll():
         date_str = day.strftime("%d.%m")
         options.append(f"{weekday} {date_str}")
 
-    # Append standard poll answers
+    # Extra vastaukset
     options.extend([
         "Koko viikko / joustava",
         "En tiedä vielä 🤷",
@@ -56,11 +55,10 @@ async def send_weekly_poll():
         "Kuhan vastauksia kattelen 🕵️"
     ])
 
-    # 5. Use bot inside an async context block to properly manage internal network sessions
     async with bot:
         await bot.send_poll(
             chat_id=CHAT_ID,
-            question=f"🎲 Viikon {week_number} pelipäivät", # Bugfix: using the actual calculated week number
+            question=f"🎲 Viikon {week_number} pelipäivät?", 
             options=options,
             is_anonymous=False,
             allows_multiple_answers=True
@@ -71,11 +69,11 @@ async def main():
     helsinki_tz = ZoneInfo("Europe/Helsinki")
     scheduler = AsyncIOScheduler(timezone=helsinki_tz)
     
-    # New poll every Sunday at 20:00
+    # Uus polli sunnuntaisin klo 20:00 seuraavalle viikolle.
     scheduler.add_job(
         send_weekly_poll,
         trigger='cron',
-        day_of_week='sun', # 'sun' instead of 'su' prevents unexpected parsing errors in APScheduler
+        day_of_week='sun', 
         hour=20,
         minute=00
     )
