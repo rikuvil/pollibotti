@@ -74,10 +74,9 @@ async def main():
         send_weekly_poll,
         trigger='cron',
         day_of_week='sun', 
-        hour=20,
+        hour=12,
         minute=00
     )
-    
     scheduler.start()
     print("Bot scheduler running strictly on Europe/Helsinki time...")
     print("Next poll will automatically send this Sunday at 20:00.")
