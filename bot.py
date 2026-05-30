@@ -61,3 +61,5 @@ async def send_weekly_poll():
 
 if __name__ == "__main__":
     asyncio.run(send_weekly_poll())
+
+# Pyörii cronin kautta kerran viikossa sunnuntaina klo 12:00
