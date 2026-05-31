@@ -1,2 +1,0 @@
-CRON_TZ=Europe/Helsinki
-0 12 * * 0 cd /path/to/pollbot && /path/to/pollbot/venv/bin/python bot.py >> /path/to/pollbot/poll.log 2>&1

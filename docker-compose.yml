@@ -1,0 +1,9 @@
+services:
+  pollbot:
+    build: .
+    container_name: pollbot
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - ./state:/app/state
