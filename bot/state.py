@@ -11,7 +11,6 @@ def has_run_this_week(week_key: str) -> bool:
     try:
         if not os.path.exists(STATE_FILE):
             return False
-
         with open(STATE_FILE, "r") as f:
             return f.read().strip() == week_key
     except Exception as e:

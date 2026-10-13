@@ -20,6 +20,6 @@ async def job():
 
 def start_scheduler():
     scheduler.configure(timezone=ZoneInfo("Europe/Helsinki"))
-    scheduler.add_job(job, "cron", day_of_week="sun", hour=16, minute=20)
+    scheduler.add_job(job, "cron", day_of_week="sun", hour=16, minute=00)
     scheduler.start()
-    print("Scheduler started successfully! Weekly poll set for Sundays at 12:00.")
+    print("Scheduler started successfully! Weekly poll set for Sundays.")

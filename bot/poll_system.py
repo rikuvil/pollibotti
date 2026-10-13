@@ -13,8 +13,13 @@ CHAT_ID = int(os.getenv("CHAT_ID"))
 bot = Bot(token=BOT_TOKEN)
 
 FI_WEEKDAYS = [
-    "Maanantai", "Tiistai", "Keskiviikko",
-    "Torstai", "Perjantai", "Lauantai", "Sunnuntai"
+    "Ma | Mon",
+    "Ti | Tue",
+    "Ke | Wed",
+    "To | Thu",
+    "Pe | Fri",
+    "La | Sat",
+    "Su | Sun"
 ]
 
 
@@ -36,15 +41,15 @@ async def send_weekly_poll():
         options.append(f"{FI_WEEKDAYS[i]} {date_str}")
 
     options.extend([
-        "Koko viikko / joustava",
-        "En tiedä vielä 🤷",
-        "En pääse 🙁",
-        "Kuhan vastauksia kattelen 🕵️"
+        "Koko viikko / joustava | Whole week / flexible",
+        "En tiedä vielä 🤷 | I don't know yet",
+        "En pääse 🙁 | Unable to make it",
+        "Vastauksia katselen 🕵️ | Checking answers"
     ])
 
     await bot.send_poll(
         chat_id=CHAT_ID,
-        question=f"🎲 Viikon {week_number} pelipäivät?",
+        question=f"🎲 Viikon {week_number} pelipäivät | Week {week_number} game sessions?",
         options=options,
         is_anonymous=False,
         allows_multiple_answers=True,
