@@ -1,6 +1,7 @@
 import asyncio
 from scheduler import start_scheduler, job
 
+# Main function to start the bot and scheduler
 async def main():
     print("Bot starting...")
     start_scheduler()
