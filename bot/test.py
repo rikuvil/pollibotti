@@ -8,6 +8,9 @@ load_dotenv()
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 CHAT_ID = int(os.getenv("CHAT_ID"))
 
+
+
+# TEST FILE DO NOT PLAY >:|
 async def main():
     async with Bot(BOT_TOKEN) as bot:
         await bot.send_message(

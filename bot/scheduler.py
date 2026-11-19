@@ -6,6 +6,7 @@ from state import has_run_this_week, mark_run
 
 scheduler = AsyncIOScheduler()
 
+# Job to send weekly poll and mark it as run in state as week number
 async def job():
     now = datetime.now(ZoneInfo("Europe/Helsinki"))
     week_key = f"{now.isocalendar().year}-{now.isocalendar().week}"
@@ -17,7 +18,7 @@ async def job():
     await send_weekly_poll()
     mark_run(week_key)
 
-
+# Starts it or something 
 def start_scheduler():
     scheduler.configure(timezone=ZoneInfo("Europe/Helsinki"))
     scheduler.add_job(job, "cron", day_of_week="sun", hour=16, minute=00)

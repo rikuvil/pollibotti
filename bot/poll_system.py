@@ -7,11 +7,13 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+# Environment variables
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 CHAT_ID = int(os.getenv("CHAT_ID"))
 
 bot = Bot(token=BOT_TOKEN)
 
+# Weeekdays in fin and eng
 FI_WEEKDAYS = [
     "Ma | Mon",
     "Ti | Tue",
@@ -22,7 +24,7 @@ FI_WEEKDAYS = [
     "Su | Sun"
 ]
 
-
+# Add dates and extra options
 async def send_weekly_poll():
     helsinki_tz = ZoneInfo("Europe/Helsinki")
     now = datetime.now(helsinki_tz)
@@ -39,13 +41,15 @@ async def send_weekly_poll():
         day = next_monday + timedelta(days=i)
         date_str = day.strftime("%d.%m")
         options.append(f"{FI_WEEKDAYS[i]} {date_str}")
-
+    # Heres the extra options
     options.extend([
         "Koko viikko / joustava | Whole week / flexible",
         "En tiedä vielä 🤷 | I don't know yet",
         "En pääse 🙁 | Unable to make it",
         "Vastauksia katselen 🕵️ | Checking answers"
     ])
+
+# Send poll and voting spec options
 
     await bot.send_poll(
         chat_id=CHAT_ID,
