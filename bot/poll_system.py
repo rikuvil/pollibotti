@@ -24,23 +24,24 @@ FI_WEEKDAYS = [
     "Su | Sun"
 ]
 
-# Add dates and extra options
+# Create the poll and add dates and extra options
 async def send_weekly_poll():
+
+    # Get Helsinki time and week number, next monday and close date
     helsinki_tz = ZoneInfo("Europe/Helsinki")
     now = datetime.now(helsinki_tz)
-
     close_date = now + timedelta(days=7)
-
     next_week = now + timedelta(days=7)
     week_number = next_week.isocalendar()[1]
-
     next_monday = next_week - timedelta(days=next_week.weekday())
 
+    # Add dates to day options
     options = []
     for i in range(7):
         day = next_monday + timedelta(days=i)
         date_str = day.strftime("%d.%m")
         options.append(f"{FI_WEEKDAYS[i]} {date_str}")
+
     # Heres the extra options
     options.extend([
         "Koko viikko / joustava | Whole week / flexible",
@@ -50,7 +51,6 @@ async def send_weekly_poll():
     ])
 
 # Send poll and voting spec options
-
     await bot.send_poll(
         chat_id=CHAT_ID,
         question=f"🎲 Viikon {week_number} pelipäivät | Week {week_number} game sessions?",
@@ -62,4 +62,5 @@ async def send_weekly_poll():
         close_date=close_date
     )
 
+# Print to check lol 
     print(f"Poll sent for week {week_number}")

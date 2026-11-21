@@ -6,7 +6,7 @@ STATE_DIR = os.path.dirname(STATE_FILE)
 if STATE_DIR:
     os.makedirs(STATE_DIR, exist_ok=True)
 
-# Check if ran this week from state, if not mark it as ran
+# Check if ran this week from state, if not mark it as ran after running
 def has_run_this_week(week_key: str) -> bool:
     try:
         if not os.path.exists(STATE_FILE):
@@ -17,7 +17,7 @@ def has_run_this_week(week_key: str) -> bool:
         print("STATE READ ERROR:", e)
         return False
 
-# Mark as ran for current week to state
+# Mark as ran for current week to state "last_run.txt"
 def mark_run(week_key: str):
     try:
         with open(STATE_FILE, "w") as f:
